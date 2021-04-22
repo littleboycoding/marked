@@ -1,6 +1,8 @@
 # Marked
 Simple and Minimalism markdown editor 🚀
 
+![Marked in action](cover.png)
+
 Written in GO and powered by Svelte
 
 ## Feature 🔥
