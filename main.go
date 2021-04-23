@@ -10,7 +10,6 @@ import (
 	"regexp"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"github.com/webview/webview"
 )
 
@@ -93,15 +92,10 @@ func app(debug bool) {
 }
 
 func main() {
-	debug := true
+	debug := false
 
-	err := godotenv.Load()
-	if err != nil {
-		debug = false
-	}
-
-	if os.Getenv("PROD") == "true" {
-		debug = false
+	if os.Getenv("DEV") == "true" {
+		debug = true
 	}
 
 	if debug {

@@ -17,4 +17,9 @@
     width: 70%;
     margin: 0 auto;
   }
+  @media (min-width: 1024px) {
+    main {
+      width: 60%;
+    }
+  }
 </style>

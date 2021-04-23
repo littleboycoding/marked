@@ -1,15 +1,27 @@
 <script>
   import Markdown from "svelte-markdown";
-  import { onMount, onDestroy } from "svelte";
+  import { onMount, onDestroy, afterUpdate } from "svelte";
+  import { navigate } from "svelte-routing";
 
   export let name;
 
   function togglePreview(event) {
+    if (event.key === "Escape") {
+      if (preview) {
+        preview = false;
+      } else {
+        if (content === originalContent) {
+          return navigate("/app");
+        } else if (confirm("Are you sure want to leave without saving ?")) {
+          return navigate("/app");
+        }
+      }
+    }
+
     if (event.ctrlKey && event.which === 83) {
       originalContent = content;
-      saveContent(name, content)
-        .then((res) => res.text())
-        .then((text) => console.log(text));
+      saving = true;
+      saveContent(name, content).then(() => (saving = false));
       event.preventDefault();
       return false;
     }
@@ -50,13 +62,22 @@
 
   let originalContent = "";
   let content = "";
-  let preview = true;
+  let preview = false;
+  let editor;
+  let saving = false;
+
+  afterUpdate(() => {
+    if (!preview && editor) editor.focus();
+  });
 </script>
 
 <svelte:head>
-  <title>{name + (content !== originalContent ? "*" : "")}</title>
+  <title>{name}</title>
 </svelte:head>
 <div class="container">
+  {#if saving}
+    <div class="dim" />
+  {/if}
   {#await contentPromise}
     <h1>Loading...</h1>
   {:then}
@@ -64,7 +85,7 @@
     <textarea
       placeholder="Insert markdown here"
       class:show={!preview}
-      autofocus
+      bind:this={editor}
       bind:value={content}
     />
   {:catch error}
@@ -73,11 +94,28 @@
 </div>
 
 <style>
-  .container > * {
+  .container > :not(.dim) {
     display: none;
   }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
   .show {
-    display: block;
+    display: block !important;
+    animation: fadeIn 0.4s;
+  }
+  .dim {
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
   }
   textarea {
     overflow: auto;
