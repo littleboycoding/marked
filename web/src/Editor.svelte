@@ -81,7 +81,9 @@
   {#await contentPromise}
     <h1>Loading...</h1>
   {:then}
-    <div class:show={preview}><Markdown source={content} /></div>
+    <div class="markdown" class:show={preview}>
+      <Markdown source={content} />
+    </div>
     <textarea
       placeholder="Insert markdown here"
       class:show={!preview}

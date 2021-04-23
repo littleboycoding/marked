@@ -42,15 +42,13 @@
 {/await}
 <footer>
   <p>
-    Create with ❤ by <a
-      target="_blank"
-      href="https://github.com/littleboycoding">@littleboycoding</a
+    Create with ❤ by <a href="https://github.com/littleboycoding"
+      >@littleboycoding</a
     >
   </p>
   <p>
-    Source code is on <a
-      target="_blank"
-      href="https://github.com/littleboycoding/marked">GitHub</a
+    Source code is on <a href="https://github.com/littleboycoding/marked"
+      >GitHub</a
     >
   </p>
 </footer>
