@@ -22,4 +22,4 @@ Written in [GO](https://golang.org/) and powered by [Svelte](https://svelte.dev/
 - More attractive UI/UX ?
 - Add documentaion
 
-This project was created for learning purpose, Source code is free to use for any purposes
+This project was created for learning purposes, Source code is free to use for any purposes
